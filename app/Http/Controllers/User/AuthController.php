@@ -21,7 +21,9 @@ class AuthController extends Controller
     }
 
     public function callbackGoogle(){
-        Log::info('Google Auth Code:', ['code' => request()->code]);
+        if (!request()->has('code')) {
+            return redirect('auth/google')->withErrors('Authorization request missing necessary code.');
+        }
         try{
             $google_user = Socialite::driver('google')->user();
             $user = User::where('google_id',$google_user->getId())->first();
@@ -33,10 +35,18 @@ class AuthController extends Controller
 
                 ]);
                 Auth::login($new_user);
+                if (session('redirect_to_payment')) {
+                    session()->forget('redirect_to_payment');  // Xóa session đã dùng
+                    return redirect()->route('payment');  // Chuyển hướng đến thanh toán
+                }
                 return redirect()->intended('/');
             }
             else{
                 Auth::login($user);
+                if (session('redirect_to_payment')) {
+                    session()->forget('redirect_to_payment');  // Xóa session đã dùng
+                    return redirect()->route('payment');  // Chuyển hướng đến thanh toán
+                }
                 return redirect()->intended('/');
             }
         } catch(\Throwable $e){
@@ -74,4 +84,9 @@ class AuthController extends Controller
     //         return redirect('auth/facebook')->withErrors('Authentication failed.');
     //     }
     // }
+    public function logout(Request $request){
+        $request->session()->invalidate();
+        Auth::logout();
+        return redirect('/'); 
+    }
 }
