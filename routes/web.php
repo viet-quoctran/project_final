@@ -15,7 +15,6 @@ Route::get('auth/google/callback',[\App\Http\Controllers\User\AuthController::cl
 
 Route::get('payment', function() {
     if (!Auth::check()) {
-        // Lưu thông tin vào session trước khi chuyển hướng
         session(['redirect_to_payment' => true, 'payment_info' => ['name' => 'turtle', 'price' => 10]]);
         return redirect()->route('google-auth');
     }
@@ -27,3 +26,4 @@ Route::get('payment/cancel', [\App\Http\Controllers\Payment\PayPalController::cl
 
 // Route::get('auth/facebook',[\App\Http\Controllers\User\AuthController::class,'redirectFacebook'])->name('facebook-auth');
 // Route::get('auth/facebook/callback',[\App\Http\Controllers\User\AuthController::class,'callbackFacebook'])->name('facebook-auth');
+Route::get('admin',[\App\Http\Controllers\Admin\AuthController::class,'index'])->name('admin.dashboard');

@@ -36,16 +36,16 @@ class AuthController extends Controller
                 ]);
                 Auth::login($new_user);
                 if (session('redirect_to_payment')) {
-                    session()->forget('redirect_to_payment');  // Xóa session đã dùng
-                    return redirect()->route('payment');  // Chuyển hướng đến thanh toán
+                    session()->forget('redirect_to_payment'); 
+                    return redirect()->route('payment'); 
                 }
                 return redirect()->intended('/');
             }
             else{
                 Auth::login($user);
                 if (session('redirect_to_payment')) {
-                    session()->forget('redirect_to_payment');  // Xóa session đã dùng
-                    return redirect()->route('payment');  // Chuyển hướng đến thanh toán
+                    session()->forget('redirect_to_payment'); 
+                    return redirect()->route('payment');
                 }
                 return redirect()->intended('/');
             }
