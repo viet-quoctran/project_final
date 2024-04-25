@@ -26,4 +26,12 @@ Route::get('payment/cancel', [\App\Http\Controllers\Payment\PayPalController::cl
 
 // Route::get('auth/facebook',[\App\Http\Controllers\User\AuthController::class,'redirectFacebook'])->name('facebook-auth');
 // Route::get('auth/facebook/callback',[\App\Http\Controllers\User\AuthController::class,'callbackFacebook'])->name('facebook-auth');
-Route::get('admin',[\App\Http\Controllers\Admin\AuthController::class,'index'])->name('admin.dashboard');
+
+Route::prefix('admin')->group(function(){
+    Route::get('login',[\App\Http\Controllers\Admin\AuthController::class,'index'])->name('admin.index.login');
+    Route::post('login',[\App\Http\Controllers\Admin\AuthController::class,'login'])->name('admin.login');
+    Route::middleware('admin')->group(function() {
+        Route::get('dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index'])->name('admin.dashboard');
+        Route::post('logout',[\App\Http\Controllers\Admin\AuthController::class,'logout'])->name('admin.logout');
+    });
+});

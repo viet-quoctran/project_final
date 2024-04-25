@@ -40,10 +40,14 @@ class User extends Authenticatable
      * @return array<string, string>
      */
     public function roles(){
-        return $this->belongToMany(Role::class);
+        return $this->belongsToMany(Role::class);
     }
     public function payments(){
         return $this->hasMany(Payment::class);
+    }
+    public function hasRole($role)
+    {
+        return $this->roles->pluck('name')->contains($role);
     }
     protected function casts(): array
     {

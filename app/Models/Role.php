@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     public function users(){
-        return $this->belongToMany(User::class);
+        return $this->belongsToMany(User::class);
     }
     public function permissions(){
-        return $this->belongToMany(Permission::class);
+        return $this->belongsToMany(Permission::class);
     }
 }

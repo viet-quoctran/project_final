@@ -249,18 +249,10 @@
                 <img style="max-width:40%;" src="{{ asset('../assets/images/turtle_256.png') }}">
             </div>
             <div class="detail-box">
-              <h6>
-                Tiny turtle
-              </h6>
-              <p>
-                Only 1 dashboard
-              </p>
-              <p>
-                Data 20MB
-              </p>
-              <p>
-                5 concurrent connections
-              </p>
+              <h6>Tiny turtle</h6>
+              <p>Only 1 dashboard</p>
+              <p>Data 20MB</p>
+              <p>5 concurrent connections</p>
               <a href="{{ route('payment', ['name' => 'turtle', 'price' => 10]) }}">
                 Try now for 10$/month
               </a>
@@ -273,18 +265,10 @@
                 <img style="max-width:40%;" src="{{ asset('../assets/images/spider_256.png') }}">
             </div>
             <div class="detail-box">
-                <h6>
-                    Simple Spider
-                </h6>
-                <p>
-                    2 Dashboard
-                </p>
-                <p>
-                    500MB
-                </p>
-                <p>
-                    10 concurrent connections
-                </p>
+                <h6>Simple Spider</h6>
+                <p>2 Dashboard</p>
+                <p>500MB</p>
+                <p>10 concurrent connections</p>
                 <a href="{{ route('payment', ['name' => 'spider', 'price' => 15]) }}">
                   Try now for 15$/month
                 </a>
@@ -297,21 +281,11 @@
                 <img style="max-width:40%;" src="{{ asset('../assets/images/cat_256.png') }}">
             </div>
             <div class="detail-box">
-              <h6>
-                Crazy Cat
-              </h6>
-              <p>
-                5 Dashboard
-              </p>
-              <p>
-                1GB Data
-              </p>
-              <p>
-                15 concurrent connections
-              </p>
-              <a href="">
-                Try now for 20$/month
-              </a>
+              <h6>Crazy Cat</h6>
+              <p>5 Dashboard</p>
+              <p>1GB Data</p>
+              <p>15 concurrent connections</p>
+              <a href="">Try now for 20$/month</a>
             </div>
           </div>
         </div>
