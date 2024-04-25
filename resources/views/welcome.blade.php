@@ -253,9 +253,7 @@
               <p>Only 1 dashboard</p>
               <p>Data 20MB</p>
               <p>5 concurrent connections</p>
-              <a href="{{ route('payment', ['name' => 'turtle', 'price' => 10]) }}">
-                Try now for 10$/month
-              </a>
+              <a href="{{ route('payment', ['name' => 'turtle', 'price' => 10]) }}">Try now for 10$/month</a>
             </div>
           </div>
         </div>
@@ -269,9 +267,7 @@
                 <p>2 Dashboard</p>
                 <p>500MB</p>
                 <p>10 concurrent connections</p>
-                <a href="{{ route('payment', ['name' => 'spider', 'price' => 15]) }}">
-                  Try now for 15$/month
-                </a>
+                <a href="{{ route('payment', ['name' => 'spider', 'price' => 15]) }}">Try now for 15$/month</a>
             </div>
           </div>
         </div>
@@ -285,7 +281,7 @@
               <p>5 Dashboard</p>
               <p>1GB Data</p>
               <p>15 concurrent connections</p>
-              <a href="">Try now for 20$/month</a>
+              <a href="{{ route('payment', ['name' => 'cat', 'price' => 20]) }}">Try now for 20$/month</a>
             </div>
           </div>
         </div>

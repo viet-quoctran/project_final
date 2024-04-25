@@ -52,7 +52,6 @@ class PayPalController extends Controller
         $response = $provider->capturePaymentOrder($request->token);
 
         if ($response['status'] == 'COMPLETED') {
-            // Payment was successful
             return redirect()->route('home')->with('success', 'Payment successful');
         }
 

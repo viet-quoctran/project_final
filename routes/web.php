@@ -13,12 +13,12 @@ Route::post('logout',[\App\Http\Controllers\User\AuthController::class,'logout']
 Route::get('auth/google',[\App\Http\Controllers\User\AuthController::class,'redirect'])->name('google-auth');
 Route::get('auth/google/callback',[\App\Http\Controllers\User\AuthController::class,'callbackGoogle'])->name('google-auth');
 
-Route::get('payment', function() {
+Route::get('payment/{name}/{price}', function($name,$price) {
     if (!Auth::check()) {
-        session(['redirect_to_payment' => true, 'payment_info' => ['name' => 'turtle', 'price' => 10]]);
+        session(['redirect_to_payment' => true, 'payment_info' => ['name' => $name, 'price' => $price]]);
         return redirect()->route('google-auth');
     }
-    $paymentInfo = session('payment_info', ['name' => null, 'price' => null]);
+    $paymentInfo = session('payment_info', ['name' => $name, 'price' => $price]);
     return app(\App\Http\Controllers\Payment\PayPalController::class)->handlePayment(new Illuminate\Http\Request($paymentInfo));
 })->name('payment');
 Route::get('payment/success', [\App\Http\Controllers\Payment\PayPalController::class,'paymentSuccess'])->name('payment.success');
@@ -34,4 +34,7 @@ Route::prefix('admin')->group(function(){
         Route::get('dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index'])->name('admin.dashboard');
         Route::post('logout',[\App\Http\Controllers\Admin\AuthController::class,'logout'])->name('admin.logout');
     });
+});
+Route::prefix('client')->group(function(){
+    Route::get('dashboard',[\App\Http\Controllers\User\DashboardController::class,'index'])->name('user.dashboard');
 });
