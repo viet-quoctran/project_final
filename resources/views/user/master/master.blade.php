@@ -40,7 +40,7 @@
 
         <!-- Page Content -->
         <div id="content" class="p-4 p-md-5">
-            
+        <iframe title="Final_Viet" width="100%" height="100%" src="https://app.powerbi.com/view?r=eyJrIjoiMzExMTRmMTktOWI3Ny00MmNiLWEyOTAtNjkzNzRiYjg3NTk4IiwidCI6ImI5MzcwZTAxLTc3MmEtNDkyNy1hZGUwLTdkYThiMTg3ZGU0MSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </div>
     </div>
 
