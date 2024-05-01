@@ -243,48 +243,21 @@
         </h2>
       </div>
       <div class="row">
+        @foreach($packages as $package)
         <div class="col-md-4">
           <div class="box ">
             <div class="img-box">
-                <img style="max-width:40%;" src="{{ asset('../assets/images/turtle_256.png') }}">
+                <img style="width: 200px; height: 200px;" src="{{ Storage::url($package->image) }}">
             </div>
             <div class="detail-box">
-              <h6>Tiny turtle</h6>
-              <p>Only 1 dashboard</p>
-              <p>Data 20MB</p>
-              <p>5 concurrent connections</p>
-              <a href="{{ route('payment', ['name' => 'turtle', 'price' => 10]) }}">Try now for 10$/month</a>
+              <h6>{{$package->name}}</h6>
+              <p>Only {{$package->quality_dashboard}} dashboard</p>
+              <p>{{$package->description}}</p>
+              <a href="{{ route('payment', ['name' => $package->name, 'price' => $package->amount, 'id' => $package->id]) }}">Try now for {{ $package->amount }}$/month</a>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="box ">
-            <div class="img-box">
-                <img style="max-width:40%;" src="{{ asset('../assets/images/spider_256.png') }}">
-            </div>
-            <div class="detail-box">
-                <h6>Simple Spider</h6>
-                <p>2 Dashboard</p>
-                <p>500MB</p>
-                <p>10 concurrent connections</p>
-                <a href="{{ route('payment', ['name' => 'spider', 'price' => 15]) }}">Try now for 15$/month</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="box ">
-            <div class="img-box">
-                <img style="max-width:40%;" src="{{ asset('../assets/images/cat_256.png') }}">
-            </div>
-            <div class="detail-box">
-              <h6>Crazy Cat</h6>
-              <p>5 Dashboard</p>
-              <p>1GB Data</p>
-              <p>15 concurrent connections</p>
-              <a href="{{ route('payment', ['name' => 'cat', 'price' => 20]) }}">Try now for 20$/month</a>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
     </div>
   </section>

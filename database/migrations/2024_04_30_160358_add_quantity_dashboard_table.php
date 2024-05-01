@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-            $table->decimal('amount',10,2);
-            $table->unsignedBigInteger('package_id');
-            $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('packages', function (Blueprint $table) {
+            $table->string('quality_dashboard')->affter('image');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::table('packages', function (Blueprint $table) {
+            //
+        });
     }
 };

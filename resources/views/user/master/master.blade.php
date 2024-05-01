@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Sidebar 01</title>
+    <title>Dashboard</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -16,24 +16,26 @@
                 <a href="#" class="img logo rounded-circle mb-5" style="background-image: url({{ asset('../assets/user/images/logo.jpg') }});"></a>
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Project</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li><a href="#">Dashboard 1</a></li>
                             <li><a href="#">Dashboard 2</a></li>
                             <li><a href="#">Dashboard 3</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">About</a></li>
                     <li>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ Auth::user()->name }}</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li><a href="#">Page 1</a></li>
-                            <li><a href="#">Page 2</a></li>
-                            <li><a href="#">Page 3</a></li>
+                            <li><a href="#">Profile</a></li>
+                            <li>
+                                <a href="javascript:void(0);" onclick="document.getElementById('logout-form').submit();">Logout</a>
+                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
                         </ul>
                     </li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Contract</a></li>
                 </ul>
             </div>
         </nav>

@@ -43,7 +43,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
     public function payments(){
-        return $this->hasMany(Payment::class);
+        return $this->belongsToMany(Payment::class);
     }
     public function hasRole($role)
     {

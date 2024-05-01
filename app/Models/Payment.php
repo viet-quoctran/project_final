@@ -11,5 +11,8 @@ class Payment extends Model
         'user_id',
         'package_id',
         'amount',
-    ]
+    ];
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 }

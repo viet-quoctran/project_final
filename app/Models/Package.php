@@ -12,6 +12,7 @@ class Package extends Model
         'amount',
         'description',
         'image',
+        'quality_dashboard',
     ];
     public function payments(){
         return $this->hasMany(Payment::class);

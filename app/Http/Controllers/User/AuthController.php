@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
+
 class AuthController extends Controller
 {
     public function index(){
@@ -37,15 +38,15 @@ class AuthController extends Controller
                 Auth::login($new_user);
                 if (session('redirect_to_payment')) {
                     session()->forget('redirect_to_payment'); 
-                    return redirect()->route('payment'); 
+                    return redirect()->intended('payment/{name}/{price}/{id}'); 
                 }
-                return redirect()->intended('/');
+                return redirect()->route('clinet/dashboard'); 
             }
             else{
                 Auth::login($user);
                 if (session('redirect_to_payment')) {
                     session()->forget('redirect_to_payment'); 
-                    return redirect()->route('payment');
+                    return redirect()->intended('payment/{name}/{price}/{id}');
                 }
                 return redirect()->intended('/');
             }
