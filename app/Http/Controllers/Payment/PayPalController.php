@@ -67,6 +67,12 @@ class PayPalController extends Controller
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
+            DB::table('user_package')->insert([
+                'user_id' => auth()->id(),
+                'package_id' => $packageData['id'],
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
             session()->forget('packageData');
             return redirect()->route('user.dashboard')->with('success', 'Payment successful');
         }

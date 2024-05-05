@@ -42,6 +42,9 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
+    public function packages(){
+        return $this->belongsToMany(Package::class,'user_package');
+    }
     public function payments(){
         return $this->belongsToMany(Payment::class);
     }
@@ -64,5 +67,8 @@ class User extends Authenticatable
             }
         }
         return false;
+    }
+    public function projects(){
+        return $this->hasMany(Project::class);
     }
 }

@@ -17,4 +17,8 @@ class Package extends Model
     public function payments(){
         return $this->hasMany(Payment::class);
     }
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
+    
 }

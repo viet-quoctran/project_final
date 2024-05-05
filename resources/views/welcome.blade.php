@@ -83,16 +83,21 @@
                 <li class="nav-item">
                   <a class="nav-link" href="service.html"> Services </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('index.login')}}"> Login </a>
+                </li>
                 @if(Auth::user())
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
                 <li class="nav-item">
-                  <a class="nav-link" href="service.html" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> {{ Auth::user()->name }} </a>
+                  <a class="nav-link" href="{{route('user.dashboard')}}"> {{ Auth::user()->name }} </a>
                 </li>
-                @else
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('index.login') }}"> Login </a>
+                    <a class="nav-link" href="javascript:void(0);" onclick="document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </li>
                 @endif
                 <li class="nav-item">

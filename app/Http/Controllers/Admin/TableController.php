@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Package;
+use App\Models\Project;
 class TableController extends Controller
 {
     public function index(){
@@ -38,5 +39,19 @@ class TableController extends Controller
         $package->save();
     
         return response()->json(['message' => 'Package added successfully', 'package' => $package]);
+    }
+    public function addProject(Request $request){
+        $request->validate([
+            'projectName' => 'required|string',
+            'linkPowerBi' => 'nullable|string',
+        ]);
+    
+        $project = new Project();
+        $project->name = $request->projectName;
+        $project->link_power_bi = $request->linkPowerBi;
+        $project->user_id = $request->user_id;
+        $project->save();
+    
+        return response()->json(['message' => 'Project added successfully', 'project' => $project]);
     }
 }

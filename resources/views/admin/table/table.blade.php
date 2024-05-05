@@ -16,11 +16,12 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered getUserId" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Package</th>
+                            <th>Project</th>
                             <th>Create_at</th>
                             <th>Action</th>
                         </tr>
@@ -29,6 +30,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Package</th>
+                            <th>Project</th>
                             <th>Create_at</th>
                             <th>Action</th>
                         </tr>
@@ -36,9 +38,25 @@
                     <tbody>
                         @foreach($users as $user)
                         <tr>
+                            <input type="hidden" class="userId" value="{{ $user->id }}">
                             <td>{{$user->name}}</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
+                            <td>
+                                @foreach($user->packages as $package)
+                                    {{$package->name}}
+                                @endforeach
+                            </td>
+                            <td>
+                                @if($user->projects->isEmpty())
+                                <button type="button" class="btn btn-success" data-toggle="modal"  data-target="#addProjectModal" title="Add" data-user-id="{{ $user->id }}">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                @else
+                                    @foreach($user->projects as $project)
+                                        {{$project->name}}
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>{{$user->created_at}}</td>
                             <td>
                                 <button class="btn btn-danger" onclick="deleteRow(this)" title="Delete">
                                     <i class="fas fa-trash-alt"></i>
@@ -88,7 +106,7 @@
                             <td>{{ $package->name }}</td>
                             <td>{{ $package->amount }}</td>
                             <td>{{ $package->quality_dashboard }}</td>
-                            <td>{{ $package->descrition }}</td>
+                            <td>{{ $package->description }}</td>
                             <td><img src="{{ Storage::url($package->image) }}" alt="Package Image" style="width: 200px; height: auto;"></td>
                             <td>
                                 <button class="btn btn-danger" onclick="deleteRow(this)" title="Delete">
@@ -108,6 +126,36 @@
 
 </div>
 <!-- Modal for Adding Package -->
+<div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addProjectForm">
+                    <!-- Form content for project -->
+                    <input type="hidden" class="user-id-input" value="">
+                    <div class="form-group">
+                        <label for="projectName">Name</label>
+                        <input type="text" name="projectName" class="form-control" id="projectName" placeholder="Enter project name">
+                    </div>
+                    <div class="form-group">
+                        <label for="linkPowerBi">Link Power BI</label>
+                        <input type="text" name="linkPowerBi" class="form-control" id="linkPowerBi" placeholder="Enter quality of dashboards">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveProject()">Save Project</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="addPackageModal" tabindex="-1" role="dialog" aria-labelledby="addPackageModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -149,7 +197,13 @@
     </div>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    var userId; 
+
+    $('.btn-success').click(function() {
+        userId = $(this).data('user-id');
+    });
     function savePackage() {
         // Tạo một đối tượng FormData để gửi dữ liệu form
         var formData = new FormData(document.getElementById('addPackageForm'));
@@ -175,6 +229,31 @@
                 console.error('Error adding package:', xhr.responseText);
             }
         });
+    }
+    function saveProject() {
+        if (typeof userId !== 'undefined') {
+            var formData = new FormData(document.getElementById('addProjectForm'));
+            formData.append('user_id', userId);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ url("/admin/table/project") }}',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false, 
+                success: function(response) {
+                    console.log('Project added successfully:', response);
+                    $('#addProjectModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error adding package:', xhr.responseText);
+                }
+            });
+        } else {
+            console.error('userId is not defined.');
+        }
     }
 </script>
 @endsection

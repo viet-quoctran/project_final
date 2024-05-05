@@ -8,7 +8,7 @@ use Laravel\Socialite\Facades\Socialite; // Sửa đường dẫn namespace
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -35,12 +35,18 @@ class AuthController extends Controller
                     'google_id'=>$google_user->getId(),
 
                 ]);
+                DB::table('role_user')->insert([
+                    'user_id' => $new_user->id,
+                    'role_id' => 2,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
                 Auth::login($new_user);
                 if (session('redirect_to_payment')) {
                     session()->forget('redirect_to_payment'); 
                     return redirect()->intended('payment/{name}/{price}/{id}'); 
                 }
-                return redirect()->route('clinet/dashboard'); 
+                return redirect()->route('user.dashboard'); 
             }
             else{
                 Auth::login($user);
@@ -48,7 +54,7 @@ class AuthController extends Controller
                     session()->forget('redirect_to_payment'); 
                     return redirect()->intended('payment/{name}/{price}/{id}');
                 }
-                return redirect()->intended('/');
+                return redirect()->route('user.dashboard'); 
             }
         } catch(\Throwable $e){
             dd($e);

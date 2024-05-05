@@ -28,13 +28,16 @@ Route::get('payment/cancel', [\App\Http\Controllers\Payment\PayPalController::cl
 Route::prefix('admin')->group(function(){
     Route::get('login',[\App\Http\Controllers\Admin\AuthController::class,'index'])->name('admin.index.login');
     Route::post('login',[\App\Http\Controllers\Admin\AuthController::class,'login'])->name('admin.login');
-    Route::get('dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index'])->name('admin.dashboard');
-    Route::get('table',[\App\Http\Controllers\Admin\TableController::class,'index'])->name('admin.table');
-    Route::post('table',[\App\Http\Controllers\Admin\TableController::class,'addPackage'])->name('add.package');
     Route::middleware('admin')->group(function() {
+        Route::get('dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index'])->name('admin.dashboard');
+        Route::get('table',[\App\Http\Controllers\Admin\TableController::class,'index'])->name('admin.table');
+        Route::post('table',[\App\Http\Controllers\Admin\TableController::class,'addPackage'])->name('add.package');
+        Route::post('table/project',[\App\Http\Controllers\Admin\TableController::class,'addProject'])->name('add.project');
         Route::post('logout',[\App\Http\Controllers\Admin\AuthController::class,'logout'])->name('admin.logout');
     });
 });
 Route::prefix('client')->group(function(){
-    Route::get('dashboard',[\App\Http\Controllers\User\DashboardController::class,'index'])->name('user.dashboard');
+    Route::get('dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])
+        ->name('user.dashboard')
+        ->middleware('ensure.user.role');
 });
